@@ -9,6 +9,9 @@ describe('testing enhancer', () => {
         })
     })
     describe('succeed()', () => {
-        it('', )
+        it('should increase enhancement by 1 if it is less than 20', () => {
+            expect(succeed({ name: 'alessandra', durability: 10, enhancement:20})).toEqual({name: 'alessandra', durability: 10, enhancement:20});
+            expect(succeed({ name: 'alessandra', durability: 11, enhancement:19})).toEqual({ name: 'alessandra', durability: 11, enhancement:20})
+        })
     })
 })
