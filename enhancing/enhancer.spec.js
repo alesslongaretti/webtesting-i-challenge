@@ -1,4 +1,4 @@
-const {succeed, fail, repair} = require('./enhancer.js');
+const {succeed, fail, repair, get} = require('./enhancer.js');
 // test away!
 
 describe('testing enhancer', () => {
@@ -19,11 +19,19 @@ describe('testing enhancer', () => {
             expect(fail({name: 'alessandra', durability:50, enhancement:14})).toEqual({name: 'alessandra', durability:45, enhancement:14})
         })
         it('if the items enhancement is 15 or more, durability is decreased by 10', () => {
-            expect(fail({enhancement:15, durability:50 })).toEqual({ enhancement: 15,durability:40})
+            expect(fail({name:'alessandra',enhancement:15, durability:50 })).toEqual({ name:'alessandra', enhancement: 15,durability:40})
 
         })
         it('if the items level is greater than 16, the enhancement decreases by 1', () => {
             expect(fail({name: 'alessandra',durability:20, enhancement:17})).toEqual({name: 'alessandra',durability:10, enhancement:16})
+        })
+    })
+    describe('get()', () => {
+        it('if the enhacement is level 0, name stays the same', () => {
+            expect(get({name: 'alessandra',durability:20, enhancement:0})).toEqual({name: 'alessandra',durability:20, enhancement:0})
+        })
+        it('if the enhacement is greater than level 0, name includes enhancement level preceded by a + sign in square brackets', () => {
+            expect(get({name: 'alessandra',durability:20, enhancement:1})).toEqual({name: '[+1]alessandra',durability:20, enhancement:1})
         })
     })
 })
